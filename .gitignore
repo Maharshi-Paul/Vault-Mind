@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.gguf
+vector_store/*.index
+vector_store/*.pkl
+data/*
+!data/.gitkeep
+.env
+*.log
