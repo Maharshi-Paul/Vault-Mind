@@ -59,8 +59,8 @@ vault-mind/
 ## Roadmap / Hackathon Progress
 
 - [x] Day 1: Project setup, local LLM + embedding pipeline scaffolded
-- [ ] Day 2: Document ingestion + local vector store
-- [ ] Day 3: End-to-end RAG query pipeline
+- [x] Day 2: Document ingestion + local vector store
+- [x] Day 3: End-to-end RAG query pipeline
 - [ ] Day 4: Quantization + performance benchmarking
 - [ ] Day 5: README polish, demo prep, optional cloud sync feature
 
