@@ -1,4 +1,7 @@
 # Vault-Mind
+<p align="center">
+  <img src="images/poster.png" alt="Vault-Mind Poster" width="900">
+</p>
 
 A fully offline AI assistant that answers questions over your own documents — local LLM + local embeddings, zero cloud dependency for the core AI.
 
