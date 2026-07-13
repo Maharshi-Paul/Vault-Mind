@@ -1,8 +1,12 @@
+<p align="center">
+  <img src="images/poster.png" alt="Vault-Mind banner" width="600">
+</p>
+
 # Vault-Mind
 
 **A fully offline AI assistant that answers questions over your own documents — local LLM + local embeddings, zero cloud dependency for the core AI.**
 
-Built for **OSDHack 2026** (Theme: On-Device AI) by [Maharshi-Paul](https://github.com/Maharshi-Paul) and team **BruteForce4**.
+Built for **OSDHack 2026** (Theme: On-Device AI) by [Maharshi-Paul](https://github.com/Maharshi-Paul) & Team **BruteForce4**.
 
 ---
 
@@ -32,17 +36,18 @@ AI tools that let you "chat with your documents" — ChatGPT file upload, cloud 
 
 Vault-Mind is a **Retrieval-Augmented Generation (RAG)** assistant that runs its **entire AI pipeline locally**:
 
-1. Your documents (`.txt`, `.pdf`) are chunked and converted into vector embeddings — on your machine.
-2. Your question is embedded the same way, and the most relevant chunks are retrieved via local vector similarity search.
-3. A **quantized, locally-running LLM** reads those chunks and your question, and generates a grounded answer — citing which document it came from.
+1. Your documents (`.txt`, `.pdf`) — one or many at once — are chunked and converted into vector embeddings on your machine.
+2. Your question is embedded the same way, and the most relevant chunks are retrieved via local vector similarity search across **all** indexed documents.
+3. A **quantized, locally-running LLM** reads those chunks and your question, and generates a grounded answer — citing which document(s) it came from.
 
-No API keys. No internet dependency for the core loop. No document content ever leaves your device.
+No API keys. No internet dependency for the core loop. No document content ever leaves your device. Available both as a **CLI** and a **local browser-based web UI**.
 
-Vault-Mind was stress-tested on a real-world document (a multi-page carpentry workshop manual with mixed prose, procedures, and diagrams) and correctly:
+Vault-Mind was stress-tested on real-world documents (multi-page workshop manuals with mixed prose, procedures, and diagrams — carpentry and fitting shop guides) and correctly:
 - Answered direct factual questions
 - Answered **indirectly-phrased** questions requiring inference (e.g. "which wood resists bending?" → correctly identified hard wood without the question using that term)
-- Answered **multi-hop** questions requiring reasoning across different sections of the document
-- **Refused to hallucinate** when asked about things not in the document (e.g. tool pricing, safety certifications) instead of making something up
+- Answered **multi-hop** questions requiring reasoning across different sections of a document
+- **Refused to hallucinate** when asked about things not in the documents (e.g. tool pricing, safety certifications) instead of making something up
+- Correctly cited **sources** when multiple documents were indexed at once
 
 ## On-Device AI Usage
 
@@ -54,7 +59,7 @@ Vault-Mind was stress-tested on a real-world document (a multi-page carpentry wo
 | FAISS (flat index) | Performs vector similarity search to retrieve relevant chunks | Local, in-process, no external DB/server |
 | `Qwen2.5-1.5B-Instruct` (GGUF, Q4_K_M quantized) via `llama.cpp` | Generates the final answer from retrieved context | Local CPU, no cloud inference API |
 
-**Cloud/network usage:** None in the core loop. Model weights and Python packages are downloaded once ahead of time (equivalent to installing any local software) — after that, `ingest` and `chat` both run fully offline.
+**Cloud/network usage:** None in the core loop. Model weights and Python packages are downloaded once ahead of time (equivalent to installing any local software) — after that, ingestion and chat both run fully offline, whether via CLI or the local web UI.
 
 ## Tech Stack
 
@@ -65,23 +70,25 @@ Vault-Mind was stress-tested on a real-world document (a multi-page carpentry wo
 | Embedding Model | `all-MiniLM-L6-v2` via `sentence-transformers` |
 | Vector Store | FAISS (`faiss-cpu`, local flat index) |
 | Document Parsing | `pypdf` |
+| Web UI | Gradio (local-only, runs on `127.0.0.1`) |
 | Language | Python 3.14 |
 
 ## Project Structure
 
 ```
-vault-mind/
+Vault-Mind/
 ├── src/
 │   ├── llm.py           # local LLM wrapper (llama.cpp)
 │   ├── embed.py          # local embedding model wrapper
-│   ├── ingest.py          # document chunking + embedding pipeline
-│   ├── vector_store.py     # local FAISS vector store
-│   └── rag.py               # retrieval + generation pipeline
-├── data/                      # your documents (not tracked in git)
-├── models/                     # downloaded GGUF model files (not tracked in git)
-├── vector_store/                 # saved FAISS index (not tracked in git)
-├── screenshots/                    # demo screenshots
-├── app.py                            # CLI entry point
+│   ├── ingest.py           # document chunking + embedding pipeline
+│   ├── vector_store.py      # local FAISS vector store
+│   └── rag.py                 # retrieval + generation pipeline
+├── data/                         # your documents (not tracked in git)
+├── models/                        # downloaded GGUF model files (not tracked in git)
+├── vector_store/                    # saved FAISS index (not tracked in git)
+├── images/                            # banner/poster and README assets
+├── app.py                               # CLI entry point
+├── web_app.py                             # local Gradio web UI entry point
 ├── requirements.txt
 ├── LICENSE
 └── README.md
@@ -116,9 +123,11 @@ hf download Qwen/Qwen2.5-1.5B-Instruct-GGUF qwen2.5-1.5b-instruct-q4_k_m.gguf --
 ```
 
 ### 4. Add your documents
-Place `.txt` or `.pdf` files into `data/`.
+Place `.txt` or `.pdf` files into `data/` — or upload them directly through the web UI (see below).
 
 ## Usage
+
+### Option 1 — CLI
 
 **Build the local index** (chunks + embeds your documents):
 ```bash
@@ -129,12 +138,23 @@ python app.py ingest
 ```bash
 python app.py chat
 ```
-
 Type `exit` or `quit` to end the session.
+
+### Option 2 — Local Web UI
+
+```bash
+python web_app.py
+```
+Open the printed local URL (usually `http://127.0.0.1:7860`) in your browser. From there you can:
+- Upload multiple `.txt` / `.pdf` files at once
+- Click **Build / Update Index** to (re)index everything currently in `data/`
+- Ask questions in a chat interface, with retrieval/generation timing and cited sources shown inline
+
+The web UI runs entirely on `127.0.0.1` (localhost) — it's a local interface only, not a hosted service.
 
 ## Example Q&A
 
-Tested against a real carpentry workshop manual (PDF, mixed text + diagrams):
+Tested against real workshop manuals (carpentry and fitting shop PDFs, mixed text + diagrams):
 
 **Indirect reasoning** (question never uses the document's own terminology):
 ```
@@ -147,7 +167,7 @@ and across the fibers, making it suitable for wood working.
 (sources: ['1_CARPENTRY SHOP.pdf'])
 ```
 
-**Grounded refusal** (question about something not in the document):
+**Grounded refusal** (question about something not in the documents):
 ```
 You: What safety certifications are required before using the carpenters bench vice?
 
@@ -172,7 +192,7 @@ or requirements for using a carpenters bench vice.
 | After tuning (`top_k=3`, `chunk_size=300`, `n_threads=8`, `max_tokens=220`) | **~12–17s** |
 
 **~60–70% latency reduction** achieved by:
-1. Reducing `n_threads` from 4 → 8 to match available CPU cores
+1. Increasing `n_threads` from 4 → 8 to match available CPU cores
 2. Capping `max_tokens` from 512 → 220 (answers don't need to ramble)
 3. Reducing retrieval `top_k` from 4 → 3 and chunk size from 500 → 300 words, cutting redundant/overlapping context fed to the LLM
 
@@ -182,16 +202,16 @@ or requirements for using a carpenters bench vice.
 
 ## Screenshots
 
-*[screenshots to be added — see `screenshots/` folder]*
+*[screenshots to be added — see `images/` folder]*
 
 ## Known Limitations / Future Scope
 
 - Currently supports `.txt` and `.pdf` only — more formats (`.docx`, `.md`) planned
 - Word-based chunking; semantic/structure-aware chunking (e.g. by heading) is a future improvement
 - No fine-tuning applied yet — LoRA fine-tuning for domain-specific tone/accuracy is a planned next step
-- CLI-only interface; a lightweight local web UI is a possible future addition
 - Single-user, single-machine only — no multi-user or sync support (by design, for privacy)
 - Generation latency (~12–17s) is usable but not instant; further quantization (e.g. Q4_0) or smaller models could be explored for speed-sensitive use cases
+- Web UI is single-session (no chat history persistence between restarts) — by design, to avoid storing any data beyond the current session
 
 ## License
 
