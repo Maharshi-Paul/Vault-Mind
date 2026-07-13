@@ -23,7 +23,7 @@ def read_pdf(path: str) -> str:
     return "\n".join(page.extract_text() or "" for page in reader.pages)
 
 
-def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50) -> list[str]:
+def chunk_text(text: str, chunk_size: int = 300, overlap: int = 30) -> list[str]:
     """Simple word-based sliding-window chunking."""
     words = text.split()
     chunks = []

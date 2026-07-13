@@ -27,7 +27,7 @@ def build_prompt(question: str, context_chunks: list[str]) -> list[dict]:
 
 
 class RAGPipeline:
-    def __init__(self, model_path: str, store_dir: str = "vector_store", top_k: int = 4):
+    def __init__(self, model_path: str, store_dir: str = "vector_store", top_k: int = 3):
         self.embedder = LocalEmbedder()
         self.store = VectorStore(dim=384, store_dir=store_dir)  # 384 = MiniLM-L6 dim
         self.store.load()
