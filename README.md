@@ -204,13 +204,13 @@ or requirements for using a carpenters bench vice.
 
 **CLI mode** — ingesting multiple documents and answering questions with source citations:
 
-<img src="screenshots/terminal_cli.png" alt="Vault-Mind CLI" width="800">
+<img src="assets/terminal_cli.png" alt="Vault-Mind CLI" width="800">
 
 **Web UI** — local browser interface for uploading documents and chatting:
 
-<img src="screenshots/web_ui_chat.png" alt="Vault-Mind Web UI" width="800">
+<img src="assets/web_ui_chat.png" alt="Vault-Mind Web UI" width="800">
 
-<img src="screenshots/web_ui_fullscreen.png" alt="Vault-Mind Web UI full view" width="800">
+<img src="assets/web_ui_fullscreen.png" alt="Vault-Mind Web UI full view" width="800">
 
 ## Known Limitations / Future Scope
 
