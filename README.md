@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/Vault_Mind_Poster.png" alt="Vault-Mind banner" width="800">
+  <img src="assets/Vault_Mind_Poster.png" alt="Vault-Mind banner" width="100%">
 </p>
 
 # Vault-Mind
