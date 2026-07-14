@@ -86,7 +86,7 @@ Vault-Mind/
 ├── data/                         # your documents (not tracked in git)
 ├── models/                        # downloaded GGUF model files (not tracked in git)
 ├── vector_store/                    # saved FAISS index (not tracked in git)
-├── images/                            # banner/poster and README assets
+├── assets/                            # banner/poster and README assets
 ├── app.py                               # CLI entry point
 ├── web_app.py                             # local Gradio web UI entry point
 ├── requirements.txt
