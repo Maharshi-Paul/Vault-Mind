@@ -198,7 +198,7 @@ or requirements for using a carpenters bench vice.
 
 ## Demo
 
-[![Vault-Mind Demo](assets/web_ui_fullscreen.png)](https://youtu.be/YDbrBSNG0Zk)
+[![Vault-Mind Demo](assets/video_button.png)](https://youtu.be/YDbrBSNG0Zk)
 
 ▶️ **[Watch the full demo video](https://youtu.be/YDbrBSNG0Zk)**
 
