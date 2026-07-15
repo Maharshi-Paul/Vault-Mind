@@ -44,7 +44,7 @@ Thanks for your interest in contributing to Vault-Mind! This project was built f
 
 ## Code of Conduct
 
-Be respectful and constructive. This project follows the general spirit of the [OSDHack 2026 Fair Play Rules](https://github.com/Maharshi-Paul/Vault-Mind) — no harmful, abusive, or plagiarized contributions.
+Be respectful and constructive. This project follows the general spirit of the [OSDHack 2026 Fair Play Rules](https://github.com/Maharshi-Paul/Vault-Mind/blob/main/CODE_OF_CONDUCT.md) — no harmful, abusive, or plagiarized contributions.
 
 ## Questions?
 
