@@ -9,6 +9,9 @@ Thanks to everyone who has contributed to Vault-Mind!
 | Contributor | Role | GitHub |
 |---|---|---|
 | Maharshi Paul | Project Lead / Core Development | [@Maharshi-Paul](https://github.com/Maharshi-Paul) |
+| Dipesh Choudhary | Contributor | [@DIPESHCHOUDHARY-CODES](https://github.com/DIPESHCHOUDHARY-CODES) |
+| Krishna Gupta | Miscellaneous | — |
+| Shivansh Pandey | Miscellaneous | — |
 
 <!-- Add additional teammates below in the same format -->
 
