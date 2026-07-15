@@ -4,7 +4,7 @@ All notable changes to Vault-Mind are documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+**Latest Release:** [v0.4.0 — OSDHack 2026 Submission](https://github.com/Maharshi-Paul/Vault-Mind/releases/tag/v0.4.0)
 
 ### Planned
 - LoRA fine-tuning for domain-specific tone/accuracy
