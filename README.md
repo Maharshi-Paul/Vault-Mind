@@ -200,7 +200,7 @@ or requirements for using a carpenters bench vice.
 
 <p align="center">
   <a href="https://youtu.be/YDbrBSNG0Zk">
-    <img src="assets/Vault_Mind_Poster.png" alt="Vault-Mind Demo" width="600">
+    <img src="assets/video_button.png" alt="Vault-Mind Demo" width="600">
   </a>
 </p>
 
