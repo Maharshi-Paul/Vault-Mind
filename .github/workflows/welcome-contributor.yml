@@ -1,0 +1,25 @@
+name: Welcome Contributor
+
+# Greets first-time contributors and reminds them to add themselves to CONTRIBUTORS.md.
+
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment welcome message
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "Thanks for opening a pull request to Vault-Mind! 🎉\n\nQuick checklist before review:\n- [ ] Added an entry to `CHANGELOG.md`\n- [ ] Added yourself to `CONTRIBUTORS.md` (if this is your first contribution)\n- [ ] Tested locally (`python app.py chat` or `python web_app.py`)\n\nSee [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for full guidelines."
+            })

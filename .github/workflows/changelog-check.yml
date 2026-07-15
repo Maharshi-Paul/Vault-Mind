@@ -1,0 +1,26 @@
+name: Changelog Check
+
+# Ensures every pull request into main includes an update to CHANGELOG.md.
+# This is a lightweight process check, not a build/test pipeline.
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify CHANGELOG.md was updated
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          if git diff --name-only origin/${{ github.base_ref }} ${{ github.sha }} | grep -q "CHANGELOG.md"; then
+            echo "CHANGELOG.md was updated. Thanks!"
+          else
+            echo "::warning::CHANGELOG.md was not updated in this PR. Please add an entry describing your change."
+          fi
