@@ -196,7 +196,7 @@ or requirements for using a carpenters bench vice.
 2. Capping `max_tokens` from 512 → 220 (answers don't need to ramble)
 3. Reducing retrieval `top_k` from 4 → 3 and chunk size from 500 → 300 words, cutting redundant/overlapping context fed to the LLM
 
-## Demo
+## Demo Video
 
 <p align="center">
   <a href="https://youtu.be/Wnj0GuKP_uI">
