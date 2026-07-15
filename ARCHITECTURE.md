@@ -6,46 +6,39 @@ Vault-Mind is a Retrieval-Augmented Generation (RAG) system where every AI compo
 
 ## Data Flow Diagram
 
-```
-                        ┌─────────────────────────────────────┐
-                        │           USER'S MACHINE              │
-                        │                                        │
-  ┌──────────┐          │   ┌──────────────┐                     │
-  │ .txt/.pdf│──────────┼──▶│  Ingestion   │                     │
-  │documents │          │   │ (chunking)   │                     │
-  └──────────┘          │   └──────┬───────┘                     │
-                        │          ▼                              │
-                        │   ┌──────────────┐                     │
-                        │   │  Embedding   │ all-MiniLM-L6-v2    │
-                        │   │    Model     │ (local, CPU)         │
-                        │   └──────┬───────┘                     │
-                        │          ▼                              │
-                        │   ┌──────────────┐                     │
-                        │   │  FAISS Index │ (local, in-process) │
-                        │   │ (vector store)│                     │
-                        │   └──────┬───────┘                     │
-                        │          │                              │
-  ┌──────────┐          │          ▼                              │
-  │  User    │──────────┼──▶┌──────────────┐                     │
-  │ Question │          │   │  Similarity  │                     │
-  └──────────┘          │   │   Search     │                     │
-                        │   └──────┬───────┘                     │
-                        │          ▼ (top-k chunks)               │
-                        │   ┌──────────────┐                     │
-                        │   │  Qwen2.5-1.5B │ GGUF, Q4_K_M        │
-                        │   │  (llama.cpp) │ (local, CPU)         │
-                        │   └──────┬───────┘                     │
-                        │          ▼                              │
-  ┌──────────┐          │   ┌──────────────┐                     │
-  │  Answer  │◀─────────┼───│   Response    │                     │
-  │+ sources │          │   │  Generation   │                     │
-  └──────────┘          │   └──────────────┘                     │
-                        │                                        │
-                        └─────────────────────────────────────┘
+```mermaid
+flowchart TD
+    DOC["📄 .txt / .pdf<br/>documents"]
+    Q["❓ User Question"]
+    ANS["✅ Answer + sources"]
 
-              CLI (app.py)  or  Local Web UI (web_app.py, Gradio)
-              Both are local-only interfaces to the same pipeline.
+    subgraph MACHINE["USER'S MACHINE — fully local"]
+        direction TB
+        ING["Ingestion<br/>(chunking)"]
+        EMB["Embedding Model<br/>all-MiniLM-L6-v2<br/>(local, CPU)"]
+        FAISS["FAISS Index<br/>(vector store, local, in-process)"]
+        SEARCH["Similarity Search"]
+        LLM["Qwen2.5-1.5B<br/>GGUF, Q4_K_M<br/>via llama.cpp (local, CPU)"]
+        GEN["Response Generation"]
+
+        ING --> EMB --> FAISS
+        SEARCH --> FAISS
+        FAISS -.top-k chunks.-> LLM
+        SEARCH --> LLM
+        LLM --> GEN
+    end
+
+    DOC --> ING
+    Q --> SEARCH
+    GEN --> ANS
+
+    style MACHINE fill:#0d1117,stroke:#58a6ff,stroke-width:2px,color:#c9d1d9
+    style DOC fill:#161b22,stroke:#58a6ff,color:#c9d1d9
+    style Q fill:#161b22,stroke:#58a6ff,color:#c9d1d9
+    style ANS fill:#161b22,stroke:#3fb950,color:#c9d1d9
 ```
+
+**Interfaces:** CLI (`app.py`) or Local Web UI (`web_app.py`, Gradio) — both are local-only interfaces to the same underlying pipeline shown above.
 
 ## Model Pipeline
 
