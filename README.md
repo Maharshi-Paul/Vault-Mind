@@ -6,7 +6,7 @@
 
 **A fully offline AI assistant that answers questions over your own documents — local LLM + local embeddings, zero cloud dependency for the core AI.**
 
-Built for **OSDHack 2026** (Theme: On-Device AI) by [Maharshi-Paul](https://github.com/Maharshi-Paul) & Team **BruteForce4**.
+Built for **OSDHack 2026** (Theme: On-Device AI) by [Maharshi-Paul](https://github.com/Maharshi-Paul) & [Team **BruteForce4**](./CONTRIBUTORS.md).
 
 ---
 
