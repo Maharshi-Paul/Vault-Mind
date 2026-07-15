@@ -11,6 +11,25 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Semantic/structure-aware chunking
 - Additional document format support (`.docx`, `.md`)
 
+## [0.4.0] — 2026-07-15
+
+### Added
+- `ARCHITECTURE.md` — system diagram (native Mermaid flowchart), data flow, local/cloud component breakdown, key design decisions
+- `TECHNICAL_REPORT.md` — model/runtime details, quantization approach, measured model size, latency benchmarks, tested hardware specs
+- `EVALUATION.md` — test methodology and real results across four categories (factual recall, indirect reasoning, multi-hop/cross-document, grounded refusal), plus known failure cases
+- `PRIVACY_AND_SAFETY.md` — data handling, permissions, storage, and risk documentation
+- `ATTRIBUTION.md` — full credit list for models, runtimes, and libraries used
+- `LOCAL_AI_VERIFICATION.md` — explicit statement of what runs locally vs. requires internet, and how to independently verify it
+- `CODE_OF_CONDUCT.md` (Contributor Covenant-based)
+- `CONTRIBUTORS.md` and `CONTRIBUTING.md`
+- `.github/workflows/changelog-check.yml` and `.github/workflows/welcome-contributor.yml` — CI checks for future pull requests
+- Demo video (recorded, edited, and linked in README)
+- CLI and web UI screenshots added to README
+- Project banner/poster image
+
+### Changed
+- Updated project banner and demo section thumbnail sizing in README
+
 ## [0.3.0] — 2026-07-14
 
 ### Added
